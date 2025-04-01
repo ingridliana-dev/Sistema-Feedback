@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Feedback</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Voltar</a>
+        <h1>Feedback da Aula</h1>
+    
+        <div class="form-group">
+            <label for="turma">Turma:</label>
+            <input type="text" id="turma" placeholder="Ex: 222 - CYO2 / TERÇA / 14:00 / Ingrid Liana">
+        </div>
+    
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" id="data">
+        </div>
+    
+        <div class="form-group">
+            <label for="linkAula">Link da aula:</label>
+            <input type="text" id="linkAula">
+        </div>
+    
+        <div class="form-group">
+            <label for="professor">Professor(a):</label>
+            <input type="text" id="professor">
+        </div>
+    
+        <div class="form-group">
+            <label for="ferramenta">Ferramenta:</label>
+            <input type="text" id="ferramenta" placeholder="Ex: HTML e CSS">
+        </div>
+    
+        <div class="form-group">
+            <label for="objetivos">Objetivos da aula:</label>
+            <textarea id="objetivos" rows="4"></textarea>
+        </div>
+    
+        <div class="form-group">
+            <label for="tipoParaCasa">Para Casa:</label>
+            <select id="tipoParaCasa">
+                <option value="padrao">Texto Padrão</option>
+                <option value="personalizado">Texto Personalizado</option>
+            </select>
+            <textarea id="paraCasaTexto" rows="4" style="display: none;"></textarea>
+        </div>
+    
+        <button onclick="gerarFeedback()">Gerar Feedback</button>
+    
+        <div id="resultado"></div>
+        <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
+    
+        <script src="js/feedback.js"></script>
+    
+          
+            <button class="theme-switch" id="themeSwitch">🌓</button>
+        
+            <script>
+                function setTheme(theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                }
+        
+                function toggleTheme() {
+                    const currentTheme = localStorage.getItem('theme') || 'light';
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    setTheme(newTheme);
+                }
+        
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                setTheme(savedTheme);
+        
+                document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
+            </script>
+        </div>
+    </body>
+</html>

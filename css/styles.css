@@ -1,0 +1,387 @@
+:root {
+    /* Tema claro (padrão) */
+    --primary-color: #1a365d;
+    --secondary-color: #2b6cb0;
+    --background-color: #edf2f7;
+    --text-color: #2d3748;
+    --card-background: #ffffff;
+    --border-color: #e2e8f0;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --button-hover: #2c5282;
+    --disabled-color: #a0aec0;
+    --success-color: #4ade80;  /* Verde mais claro para o estado normal */
+    --success-hover: #22c55e;  /* Verde mais escuro para o hover */
+}
+
+[data-theme="dark"] {
+    --primary-color: #90cdf4;
+    --secondary-color: #4299e1;
+    --background-color: #171923;
+    --text-color: #cbd5e0;
+    --card-background: #1a202c;  /* Cor mais escura para form-group */
+    --border-color: #4a5568;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --button-hover: #3182ce;
+    --disabled-color: #4a5568;
+    --input-background: #2d3748;  /* Cor mais clara para inputs */
+    /* Atualize as variáveis root para incluir as cores do botão de copiar */
+}
+
+[data-theme="dark"] {
+    --primary-color: #90cdf4;
+    --secondary-color: #4299e1;
+    --background-color: #171923;
+    --text-color: #cbd5e0;
+    --card-background: #1a202c;  /* Cor mais escura para form-group */
+    --border-color: #4a5568;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --button-hover: #3182ce;
+    --disabled-color: #4a5568;
+    --input-background: #2d3748;  /* Cor mais clara para inputs */
+}
+
+/* Atualizar os inputs e selects para usar cor de fundo mais escura no tema escuro */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--input-background);
+}
+
+[data-theme="dark"] .checkbox-group label {
+    background-color: var(--input-background);
+}
+
+[data-theme="dark"] .checkbox-group label:hover {
+    background-color: var(--card-background);
+    border-color: var(--secondary-color);
+}
+
+/* Atualizar os elementos existentes para usar as variáveis */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.form-group {
+    background: var(--card-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .form-group {
+    border-color: var(--border-color);
+}
+
+input, textarea, select {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--secondary-color);
+}
+
+select {
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+.checkbox-group label {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.checkbox-group label:hover {
+    background-color: var(--border-color);
+}
+
+#resultado {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+/* Remover esta segunda definição que está sobrescrevendo */
+.form-group {
+    
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+/* Manter apenas a primeira definição que usa as variáveis */
+.form-group {
+    background: var(--card-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: var(--input-background);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.copy-button {
+    background-color: var(--success-color);
+    margin-top: 15px;
+    color: white;  /* Garantir que o texto seja sempre branco */
+}
+
+.copy-button:hover {
+    background-color: var(--success-hover);
+}
+
+#resultado {
+    white-space: pre-wrap;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-top: 20px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-family: monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    display: none;
+    box-shadow: var(--box-shadow);
+}
+
+[data-theme="dark"] #resultado {
+    background-color: #0f172a;  /* Fundo mais escuro para maior contraste */
+    color: #f1f5f9;  /* Texto mais claro para maior contraste */
+    border-color: var(--border-color);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .form-group {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+::placeholder {
+    color: #95a5a6;
+    opacity: 0.7;
+}
+
+/* Adicione após as variáveis root e antes do estilo do body */
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    color: var(--secondary-color);
+    transform: translateX(-5px);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #e1e1e1;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.checkbox-group label:hover {
+    background-color: #e8f4fd;
+    border-color: var(--secondary-color);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    accent-color: var(--secondary-color);
+}
+
+.checkbox-group label.selected {
+    background-color: #e8f4fd;
+    border-color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}
+.equipment-group {
+    display: grid;
+    gap: 15px;
+}
+
+.equipment-group div {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.equipment-group label {
+    margin: 0;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#chanceValue {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .equipment-group div {
+        grid-template-columns: 1fr;
+    }
+}
+
+#outroConteudoTexto {
+    margin-top: 12px;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.checkbox-group + textarea {
+    margin-top: 12px;
+}
+
+/* Adicione estas definições do theme-switch */
+.theme-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-background);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+}
+
+.theme-switch:hover {
+    transform: scale(1.1);
+}
