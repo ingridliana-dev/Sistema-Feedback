@@ -1,7 +1,4 @@
 window.onload = function() {
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('data').value = formattedDate;
 
     // Mostrar/ocultar campo de outro conteúdo
     document.getElementById('outroConteudo').addEventListener('change', function() {

@@ -385,3 +385,5 @@ input[type="range"] {
 .theme-switch:hover {
     transform: scale(1.1);
 }
+
+/* Remover todo o bloco de estilos específicos do input[type="date"] que foi adicionado */

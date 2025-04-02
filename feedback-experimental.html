@@ -13,7 +13,10 @@
 
         <div class="form-group">
             <label for="data">Data:</label>
-            <input type="date" id="data">
+            <input type="date" 
+                   id="data" 
+                   lang="pt-BR"
+                   pattern="\d{2}/\d{2}/\d{4}">
         </div>
 
         <div class="form-group">
@@ -166,18 +169,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Configurar data atual
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];
-            document.getElementById('data').value = formattedDate;
+            // Pegar a data local sem ajustes de UTC
+            const hoje = new Date();
+            console.log('Data atual:', hoje);
+            
+            // Formatar a data diretamente
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+            
+            console.log('Data formatada:', dataFormatada);
+            document.getElementById('data').defaultValue = dataFormatada;
 
-            // Configurar horário atual (versão corrigida)
-            let now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('horario').value = `${hours}:${minutes}`;
+            // Configurar horário atual
+            const timeString = hoje.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+            });
+            document.getElementById('horario').value = timeString;
 
             // Adicionar evento para mostrar/ocultar campo de outro conteúdo
             document.getElementById('outroConteudo').addEventListener('change', function() {

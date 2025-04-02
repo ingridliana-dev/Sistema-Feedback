@@ -1,9 +1,8 @@
 const TEXTO_PADRAO_PARA_CASA = "O aluno pode acessar o portal e realizar as atividades para casa da aula atual e também das anteriores, qualquer dúvida, anotar e trazer na próxima semana.";
 
 window.onload = function() {
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('data').value = formattedDate;
+    
+    
 
     document.getElementById('tipoParaCasa').addEventListener('change', function() {
         const textArea = document.getElementById('paraCasaTexto');

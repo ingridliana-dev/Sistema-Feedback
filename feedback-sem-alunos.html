@@ -18,7 +18,10 @@
     
         <div class="form-group">
             <label for="data">Data:</label>
-            <input type="date" id="data">
+            <input type="date" 
+                   id="data" 
+                   lang="pt-BR"
+                   pattern="\d{2}/\d{2}/\d{4}">
         </div>
     
         <div class="form-group">
@@ -40,11 +43,20 @@
     <button class="theme-switch" id="themeSwitch">🌓</button>
 
     <script>
-        window.onload = function() {
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];
-            document.getElementById('data').value = formattedDate;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pegar a data local sem ajustes de UTC
+            const hoje = new Date();
+            console.log('Data atual:', hoje);
+            
+            // Formatar a data diretamente
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+            
+            console.log('Data formatada:', dataFormatada);
+            document.getElementById('data').value = dataFormatada;
+        });
 
         function formatarData(data) {
             const [ano, mes, dia] = data.split('-');
@@ -101,9 +113,11 @@ Contamos com o apoio de todos para que as aulas aconteçam da melhor maneira pos
             setTheme(newTheme);
         }
 
+        // Inicializar tema
         const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
 
+        // Adicionar evento ao botão
         document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
     </script>
 </body>
