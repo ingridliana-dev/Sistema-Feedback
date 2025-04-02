@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar tema
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
+
+    // Adicionar evento para controlar visibilidade do textarea
+    document.getElementById('tipoParaCasa').addEventListener('change', function() {
+        const paraCasaTexto = document.getElementById('paraCasaTexto');
+        paraCasaTexto.style.display = this.value === 'personalizado' ? 'block' : 'none';
+    });
 });
 
 function toggleParaCasaTexto() {

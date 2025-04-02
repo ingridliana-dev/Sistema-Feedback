@@ -58,7 +58,7 @@
             <!-- Mover todos os campos existentes para dentro desta div -->
             <div class="form-group">
                 <label>Conteúdo aplicado em aula:</label>
-                <div class="checkbox-group">
+                <div class="content-checkbox-group">
                     <label><input type="checkbox" name="conteudo" value="Flappy Bird"> Flappy Bird</label>
                     <label><input type="checkbox" name="conteudo" value="Angry Birds"> Angry Birds</label>
                     <label><input type="checkbox" name="conteudo" value="Construct 3"> Construct 3</label>
@@ -102,7 +102,7 @@
 
             <div class="form-group">
                 <label>Ritmo de turma:</label>
-                <div class="checkbox-group">
+                <div class="rhythm-checkbox-group">
                     <label><input type="checkbox" name="ritmo" value="Lento"> Lento</label>
                     <label><input type="checkbox" name="ritmo" value="Médio"> Médio</label>
                     <label><input type="checkbox" name="ritmo" value="Rápido"> Rápido</label>
@@ -121,8 +121,7 @@
                     <div>
                         <label>🎙 Microfone:</label>
                         <select name="microfone" required>
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
+                            <option value="Sim" selected>Sim</option>
                             <option value="Não">Não</option>
                             <option value="Razoável">Razoável</option>
                             <option value="Não consegui saber">Não consegui saber</option>
@@ -131,8 +130,7 @@
                     <div>
                         <label>📷 Câmera:</label>
                         <select name="camera" required>
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
+                            <option value="Sim" selected>Sim</option>
                             <option value="Não">Não</option>
                             <option value="Razoável">Razoável</option>
                             <option value="Não consegui saber">Não consegui saber</option>
@@ -141,8 +139,7 @@
                     <div>
                         <label>🖱 Mouse:</label>
                         <select name="mouse" required>
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
+                            <option value="Sim" selected>Sim</option>
                             <option value="Não">Não</option>
                             <option value="Razoável">Razoável</option>
                             <option value="Não consegui saber">Não consegui saber</option>
@@ -151,8 +148,7 @@
                     <div>
                         <label>📶 Internet:</label>
                         <select name="internet" required>
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
+                            <option value="Sim" selected>Sim</option>
                             <option value="Não">Não</option>
                             <option value="Razoável">Razoável</option>
                             <option value="Não consegui saber">Não consegui saber</option>
@@ -161,8 +157,7 @@
                     <div>
                         <label>💻 PC:</label>
                         <select name="pc" required>
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
+                            <option value="Sim" selected>Sim</option>
                             <option value="Não">Não</option>
                             <option value="Razoável">Razoável</option>
                             <option value="Não consegui saber">Não consegui saber</option>
@@ -174,14 +169,16 @@
             <!-- Mover os botões para fora da div campos-feedback -->
             </div> <!-- Fim da div campos-feedback -->
             
-            <button onclick="gerarFeedback()">Gerar Feedback</button>
-            <div id="resultado"></div>
-            <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
-            
-            </div> <!-- Fim da div container -->
-            
-            <button class="theme-switch" id="themeSwitch">🌓</button>
-            
-            <script src="js/feedback-experimental.js"></script>
+            <!-- Área de ações atualizada -->
+            <div class="form-actions">
+                <button onclick="gerarFeedback()" class="primary-button">Gerar Feedback</button>
+                <div id="resultado"></div>
+                <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
+            </div>
+        </div> <!-- Fim da div container -->
+        
+        <button class="theme-switch" id="themeSwitch">🌓</button>
+        
+        <script src="js/feedback-experimental.js"></script>
 </body>
 </html>

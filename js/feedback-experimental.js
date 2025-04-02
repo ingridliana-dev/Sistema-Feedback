@@ -86,8 +86,14 @@ Após aguardar durante 1h, o aluno não compareceu.
     }
 
     // Código para quando o aluno comparece
-    const conteudos = [...document.querySelectorAll('input[name="conteudo"]:checked')]
-        .map(input => input.value)
+    const conteudosSelecionados = [...document.querySelectorAll('input[name="conteudo"]:checked')]
+        .map(input => {
+            if (input.value === 'outro') {
+                const outroTexto = document.getElementById('outroConteudoTexto').value;
+                return outroTexto ? outroTexto : 'outro';
+            }
+            return input.value;
+        })
         .join(', ');
 
     // Capturar o valor do desenvolvimento
@@ -117,7 +123,7 @@ Após aguardar durante 1h, o aluno não compareceu.
 **Aluno: ${nomeAluno}**
 Idade: ${idade}
 
-📖 Conteúdo aplicado: ${conteudos}
+📖 Conteúdo aplicado: ${conteudosSelecionados}
 
 📝 Desenvolvimento: ${desenvolvimento}
 

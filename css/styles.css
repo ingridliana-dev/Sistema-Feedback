@@ -192,7 +192,7 @@ select {
 button {
     background-color: var(--secondary-color);
     color: white;
-    padding: 12px 24px;
+    padding: 6px 24px;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -201,6 +201,7 @@ button {
     transition: background-color 0.3s ease;
     width: 100%;
     margin-bottom: 15px;
+    line-height: 1;
 }
 
 button:hover {
@@ -209,8 +210,10 @@ button:hover {
 
 .copy-button {
     background-color: var(--success-color);
-    margin-top: 15px;
-    color: white;  /* Garantir que o texto seja sempre branco */
+    margin: 15px auto;
+    color: white;
+    max-width: 200px;
+    display: block;
 }
 
 .copy-button:hover {
@@ -222,19 +225,22 @@ button:hover {
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 20px;
-    margin-top: 20px;
+    margin: 20px 0;
     background-color: var(--card-background);
     color: var(--text-color);
     font-family: monospace;
     font-size: 0.9em;
     line-height: 1.5;
-    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 200px;
     box-shadow: var(--box-shadow);
+    display: none; /* Esconde o resultado inicialmente */
 }
 
 [data-theme="dark"] #resultado {
-    background-color: #0f172a;  /* Fundo mais escuro para maior contraste */
-    color: #f1f5f9;  /* Texto mais claro para maior contraste */
+    background-color: #0f172a;
+    color: #f1f5f9;
     border-color: var(--border-color);
 }
 
@@ -259,66 +265,116 @@ button:hover {
 }
 
 /* Adicione após as variáveis root e antes do estilo do body */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.container h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 .back-button {
-    display: inline-block;
-    padding: 10px 20px;
-    color: var(--primary-color);
+    color: white;
     text-decoration: none;
-    font-weight: 600;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
+    display: inline-block;
     margin-bottom: 20px;
+    font-weight: 500;
 }
 
 .back-button:hover {
     color: var(--secondary-color);
-    transform: translateX(-5px);
 }
 
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    margin-top: 10px;
+.form-group {
+    background: var(--form-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.checkbox-group label {
+/* Campos que devem ocupar linha inteira */
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Área de resultado */
+#resultado {
+    grid-column: 1 / -1;
+    min-height: 200px;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--form-bg);
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+/* Botões e resultado */
+.button-group {
+    grid-column: 1 / -1;
     display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #f8f9fa;
-    border: 2px solid #e1e1e1;
+    justify-content: center;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.button-group button {
+    width: 200px; /* Largura fixa para os botões */
+}
+
+#resultado {
+    grid-column: 1 / -1;
+    min-height: 200px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background: var(--card-background);
     border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: all 0.3s ease;
+    white-space: pre-wrap;
+    width: 100%;
 }
 
-.checkbox-group label:hover {
-    background-color: #e8f4fd;
-    border-color: var(--secondary-color);
+/* Ajuste específico para o botão copiar */
+#copyButton {
+    width: 200px;
+    margin: 1rem auto;
+    display: none;
 }
 
-.checkbox-group input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    margin-bottom: 0;
-    accent-color: var(--secondary-color);
+.button-group.primary {
+    margin-bottom: 2rem;
 }
 
-.checkbox-group label.selected {
-    background-color: #e8f4fd;
-    border-color: var(--secondary-color);
+.button-group.secondary {
+    margin-top: 1rem;
 }
 
+#resultado {
+    grid-column: 1 / -1;
+    min-height: 200px;
+    padding: 1.5rem;
+    background: var(--form-bg);
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
-    .checkbox-group {
+    .container {
         grid-template-columns: 1fr;
+        padding: 1rem;
     }
 }
 .equipment-group {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
+    padding: 1rem 0;
 }
 
 .equipment-group div {
@@ -328,27 +384,50 @@ button:hover {
     gap: 10px;
 }
 
+/* Posicionamento específico dos equipamentos */
+.equipment-group div:nth-child(1) { /* Microfone */
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.equipment-group div:nth-child(2) { /* Câmera */
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.equipment-group div:nth-child(3) { /* Mouse */
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.equipment-group div:nth-child(4) { /* Internet */
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.equipment-group div:nth-child(5) { /* PC */
+    grid-column: 2;
+    grid-row: 2;
+}
+
 .equipment-group label {
     margin: 0;
+    white-space: nowrap;
+    color: var(--text-color);
 }
 
-input[type="range"] {
+.equipment-group select {
     width: 100%;
-    margin: 10px 0;
-}
-
-#chanceValue {
-    font-weight: bold;
-    margin-left: 10px;
+    margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
-    .checkbox-group {
+    .equipment-group {
         grid-template-columns: 1fr;
     }
     
     .equipment-group div {
-        grid-template-columns: 1fr;
+        grid-column: 1 !important;
     }
 }
 
@@ -386,4 +465,113 @@ input[type="range"] {
     transform: scale(1.1);
 }
 
-/* Remover todo o bloco de estilos específicos do input[type="date"] que foi adicionado */
+#paraCasaTexto {
+    display: none;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Container para os botões e resultado */
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.5rem;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    margin: 0;
+    grid-column: 1 / -1; /* Garante que ocupe toda a largura */
+}
+
+/* Ajuste para campos-feedback */
+#campos-feedback {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+#campos-feedback .form-group {
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+/* Melhorias nos checkboxes */
+/* Estilo base compartilhado para todos os grupos de checkbox */
+.checkbox-group,
+.content-checkbox-group,
+.rhythm-checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+/* Estilo visual compartilhado para todos os labels de checkbox */
+.checkbox-group label,
+.content-checkbox-group label,
+.rhythm-checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--card-background);
+}
+
+/* Estilo dos checkboxes */
+.checkbox-group input[type="checkbox"],
+.content-checkbox-group input[type="checkbox"],
+.rhythm-checkbox-group input[type="checkbox"] {
+    margin: 0;
+    width: auto;
+    cursor: pointer;
+}
+
+/* Mantém os posicionamentos específicos existentes */
+/* Conteúdo */
+.content-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+.content-checkbox-group label:nth-child(2) { grid-area: 2 / 1; }
+.content-checkbox-group label:nth-child(3) { grid-area: 1 / 2; }
+.content-checkbox-group label:nth-child(4) { grid-area: 2 / 2; }
+.content-checkbox-group label:nth-child(5) { grid-area: 1 / 3; }
+.content-checkbox-group label:nth-child(6) { grid-area: 2 / 3; }
+
+/* Ritmo */
+.rhythm-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+.rhythm-checkbox-group label:nth-child(2) { grid-area: 1 / 2; }
+.rhythm-checkbox-group label:nth-child(3) { grid-area: 1 / 3; }
+
+/* Cursos (mantém o layout existente) */
+.checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+.checkbox-group label:nth-child(2) { grid-area: 2 / 1; }
+.checkbox-group label:nth-child(3) { grid-area: 3 / 1; }
+.checkbox-group label:nth-child(4) { grid-area: 4 / 1; }
+.checkbox-group label:nth-child(5) { grid-area: 1 / 2; }
+.checkbox-group label:nth-child(6) { grid-area: 2 / 2; }
+.checkbox-group label:nth-child(7) { grid-area: 3 / 2; }
+.checkbox-group label:nth-child(8) { grid-area: 4 / 2; }
+.checkbox-group label:nth-child(9) { grid-area: 1 / 3; }
+.checkbox-group label:nth-child(10) { grid-area: 2 / 3; }
+.checkbox-group label:nth-child(11) { grid-area: 3 / 3; }
+
+/* Estilo específico para o botão na página de feedback sem agendamento */
+#gerarFeedbackBtn {
+    max-width: fit-content;
+    margin: 20px auto;
+    display: block;
+    padding: 6px 20px;
+    width: auto;
+    height: auto;
+    line-height: 1.2;
+    font-size: 0.95em;
+}

@@ -11,6 +11,7 @@
         <a href="index.html" class="back-button">← Voltar</a>
         <h1>Feedback da Aula</h1>
     
+        <!-- Campos em duas colunas -->
         <div class="form-group">
             <label for="turma">Turma:</label>
             <input type="text" id="turma" placeholder="Ex: 222 - CYO2 / TERÇA / 14:00 / Ingrid Liana">
@@ -18,14 +19,16 @@
     
         <div class="form-group">
             <label for="data">Data:</label>
-            <input type="date" id="data" lang="pt-BR" pattern="\d{2}/\d{2}/\d{4}">
+            <input type="date" id="data">
         </div>
     
-        <div class="form-group">
+        <!-- Campos que ocupam linha inteira -->
+        <div class="form-group full-width">
             <label for="linkAula">Link da aula:</label>
             <input type="text" id="linkAula">
         </div>
     
+        <!-- Continuação dos campos em duas colunas -->
         <div class="form-group">
             <label for="professor">Professor(a):</label>
             <input type="text" id="professor">
@@ -36,28 +39,30 @@
             <input type="text" id="ferramenta" placeholder="Ex: HTML e CSS">
         </div>
     
-        <div class="form-group">
+        <!-- Campos que ocupam linha inteira -->
+        <div class="form-group full-width">
             <label for="objetivos">Objetivos da aula:</label>
             <textarea id="objetivos" rows="4"></textarea>
         </div>
     
-        <div class="form-group">
+        <div class="form-group full-width">
             <label for="tipoParaCasa">Para Casa:</label>
             <select id="tipoParaCasa">
                 <option value="padrao">Texto Padrão</option>
                 <option value="personalizado">Texto Personalizado</option>
             </select>
-            <textarea id="paraCasaTexto" rows="4" style="display: none;"></textarea>
+            <textarea id="paraCasaTexto" rows="4"></textarea>
         </div>
     
-        <button id="gerarFeedbackBtn">Gerar Feedback</button>
-    
-        <div id="resultado"></div>
-        <button id="copyButton" class="copy-button" style="display: none;">Copiar Texto</button>
-    
-        <button class="theme-switch" id="themeSwitch">🌓</button>
+        <!-- Área de ações - corrigida -->
+        <div class="form-actions">
+            <button id="gerarFeedbackBtn" class="primary-button">Gerar Feedback</button>
+            <div id="resultado"></div>
+            <button id="copyButton" class="copy-button" style="display: none;">Copiar Texto</button>
+        </div>
     </div>
 
+    <button class="theme-switch" id="themeSwitch">🌓</button>
     <script src="js/feedback.js"></script>
 </body>
 </html>
