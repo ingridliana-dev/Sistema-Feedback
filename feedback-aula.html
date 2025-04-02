@@ -18,10 +18,7 @@
     
         <div class="form-group">
             <label for="data">Data:</label>
-            <input type="date" 
-                   id="data" 
-                   lang="pt-BR"
-                   pattern="\d{2}/\d{2}/\d{4}">
+            <input type="date" id="data" lang="pt-BR" pattern="\d{2}/\d{2}/\d{4}">
         </div>
     
         <div class="form-group">
@@ -53,49 +50,14 @@
             <textarea id="paraCasaTexto" rows="4" style="display: none;"></textarea>
         </div>
     
-        <button onclick="gerarFeedback()">Gerar Feedback</button>
+        <button id="gerarFeedbackBtn">Gerar Feedback</button>
     
         <div id="resultado"></div>
-        <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
+        <button id="copyButton" class="copy-button" style="display: none;">Copiar Texto</button>
     
-        <script src="js/feedback.js"></script>
-    
-          
-            <button class="theme-switch" id="themeSwitch">🌓</button>
-        
-            <script>
-                function setTheme(theme) {
-                    document.documentElement.setAttribute('data-theme', theme);
-                    localStorage.setItem('theme', theme);
-                }
-        
-                function toggleTheme() {
-                    const currentTheme = localStorage.getItem('theme') || 'light';
-                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                    setTheme(newTheme);
-                }
-        
-                const savedTheme = localStorage.getItem('theme') || 'light';
-                setTheme(savedTheme);
-        
-                document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
-            </script>
-        </div>
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Pegar a data local sem ajustes de UTC
-            const hoje = new Date();
-            console.log('Data atual:', hoje);
-            
-            // Formatar a data diretamente
-            const ano = hoje.getFullYear();
-            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-            const dia = String(hoje.getDate()).padStart(2, '0');
-            const dataFormatada = `${ano}-${mes}-${dia}`;
-            
-            console.log('Data formatada:', dataFormatada);
-            document.getElementById('data').defaultValue = dataFormatada;
-        });
-        </script>
-    </body>
+        <button class="theme-switch" id="themeSwitch">🌓</button>
+    </div>
+
+    <script src="js/feedback.js"></script>
+</body>
 </html>
