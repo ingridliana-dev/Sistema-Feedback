@@ -46,181 +46,142 @@
         </div>
 
         <div class="form-group">
-            <label>Conteúdo aplicado em aula:</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="conteudo" value="Flappy Bird"> Flappy Bird</label>
-                <label><input type="checkbox" name="conteudo" value="Angry Birds"> Angry Birds</label>
-                <label><input type="checkbox" name="conteudo" value="Construct 3"> Construct 3</label>
-                <label><input type="checkbox" name="conteudo" value="Javascript"> Javascript</label>
-                <label><input type="checkbox" name="conteudo" value="Python"> Python</label>
-                <label><input type="checkbox" name="conteudo" value="outro" id="outroConteudo"> Outro</label>
-            </div>
-            <textarea id="outroConteudoTexto" placeholder="Digite o conteúdo personalizado" style="display: none;"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="desenvolvimento">Como foi o desenvolvimento do aluno na aula?</label>
-            <textarea id="desenvolvimento" rows="4" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="condicoes">Tem condições de frequentar o Curso?</label>
-            <select id="condicoes" name="condicoes" required>
+            <label for="presenca">Presença do Aluno:</label>
+            <select id="presenca" required onchange="toggleFields()">
                 <option value="">Selecione uma opção</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
+                <option value="compareceu">Aluno compareceu</option>
+                <option value="nao-compareceu">Aluno não compareceu</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Curso indicado:</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="curso" value="CK1"> CK1</label>
-                <label><input type="checkbox" name="curso" value="CK2"> CK2</label>
-                <label><input type="checkbox" name="curso" value="CK3"> CK3</label>
-                <label><input type="checkbox" name="curso" value="CK4"> CK4</label>
-                <label><input type="checkbox" name="curso" value="CT1"> CT1</label>
-                <label><input type="checkbox" name="curso" value="CT2"> CT2</label>
-                <label><input type="checkbox" name="curso" value="CT3"> CT3</label>
-                <label><input type="checkbox" name="curso" value="CT4"> CT4</label>
-                <label><input type="checkbox" name="curso" value="CY1"> CY1</label>
-                <label><input type="checkbox" name="curso" value="CY2"> CY2</label>
-                <label><input type="checkbox" name="curso" value="CP1"> CP1</label>
+        <div id="campos-feedback" style="display: none;">
+            <!-- Mover todos os campos existentes para dentro desta div -->
+            <div class="form-group">
+                <label>Conteúdo aplicado em aula:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="conteudo" value="Flappy Bird"> Flappy Bird</label>
+                    <label><input type="checkbox" name="conteudo" value="Angry Birds"> Angry Birds</label>
+                    <label><input type="checkbox" name="conteudo" value="Construct 3"> Construct 3</label>
+                    <label><input type="checkbox" name="conteudo" value="Javascript"> Javascript</label>
+                    <label><input type="checkbox" name="conteudo" value="Python"> Python</label>
+                    <label><input type="checkbox" name="conteudo" value="outro" id="outroConteudo"> Outro</label>
+                </div>
+                <textarea id="outroConteudoTexto" placeholder="Digite o conteúdo personalizado" style="display: none;"></textarea>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Ritmo de turma:</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="ritmo" value="Lento"> Lento</label>
-                <label><input type="checkbox" name="ritmo" value="Médio"> Médio</label>
-                <label><input type="checkbox" name="ritmo" value="Rápido"> Rápido</label>
+            <div class="form-group">
+                <label for="desenvolvimento">Como foi o desenvolvimento do aluno na aula?</label>
+                <textarea id="desenvolvimento" rows="4" required></textarea>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="chance">Chance de matricular (1-10):</label>
-            <input type="range" id="chance" min="1" max="10" value="5">
-            <span id="chanceValue">5</span>
-        </div>
+            <div class="form-group">
+                <label for="condicoes">Tem condições de frequentar o Curso?</label>
+                <select id="condicoes" name="condicoes" required>
+                    <option value="">Selecione uma opção</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label>Equipamentos:</label>
-            <div class="equipment-group">
-                <div>
-                    <label>🎙 Microfone:</label>
-                    <select name="microfone" required>
-                        <option value="">Selecione</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Razoável">Razoável</option>
-                        <option value="Não consegui saber">Não consegui saber</option>
-                    </select>
-                </div>
-                <div>
-                    <label>📷 Câmera:</label>
-                    <select name="camera" required>
-                        <option value="">Selecione</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Razoável">Razoável</option>
-                        <option value="Não consegui saber">Não consegui saber</option>
-                    </select>
-                </div>
-                <div>
-                    <label>🖱 Mouse:</label>
-                    <select name="mouse" required>
-                        <option value="">Selecione</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Razoável">Razoável</option>
-                        <option value="Não consegui saber">Não consegui saber</option>
-                    </select>
-                </div>
-                <div>
-                    <label>📶 Internet:</label>
-                    <select name="internet" required>
-                        <option value="">Selecione</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Razoável">Razoável</option>
-                        <option value="Não consegui saber">Não consegui saber</option>
-                    </select>
-                </div>
-                <div>
-                    <label>💻 PC:</label>
-                    <select name="pc" required>
-                        <option value="">Selecione</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Razoável">Razoável</option>
-                        <option value="Não consegui saber">Não consegui saber</option>
-                    </select>
+            <div class="form-group">
+                <label>Curso indicado:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="curso" value="CK1"> CK1</label>
+                    <label><input type="checkbox" name="curso" value="CK2"> CK2</label>
+                    <label><input type="checkbox" name="curso" value="CK3"> CK3</label>
+                    <label><input type="checkbox" name="curso" value="CK4"> CK4</label>
+                    <label><input type="checkbox" name="curso" value="CT1"> CT1</label>
+                    <label><input type="checkbox" name="curso" value="CT2"> CT2</label>
+                    <label><input type="checkbox" name="curso" value="CT3"> CT3</label>
+                    <label><input type="checkbox" name="curso" value="CT4"> CT4</label>
+                    <label><input type="checkbox" name="curso" value="CY1"> CY1</label>
+                    <label><input type="checkbox" name="curso" value="CY2"> CY2</label>
+                    <label><input type="checkbox" name="curso" value="CP1"> CP1</label>
                 </div>
             </div>
-        </div>
 
-        <button onclick="gerarFeedback()">Gerar Feedback</button>
+            <div class="form-group">
+                <label>Ritmo de turma:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="ritmo" value="Lento"> Lento</label>
+                    <label><input type="checkbox" name="ritmo" value="Médio"> Médio</label>
+                    <label><input type="checkbox" name="ritmo" value="Rápido"> Rápido</label>
+                </div>
+            </div>
 
-        <div id="resultado"></div>
-        <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
-    </div>
-    <button class="theme-switch" id="themeSwitch">🌓</button>
+            <div class="form-group">
+                <label for="chance">Chance de matricular (1-10):</label>
+                <input type="range" id="chance" min="1" max="10" value="5">
+                <span id="chanceValue">5</span>
+            </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Pegar a data local sem ajustes de UTC
-            const hoje = new Date();
-            console.log('Data atual:', hoje);
+            <div class="form-group">
+                <label>Equipamentos:</label>
+                <div class="equipment-group">
+                    <div>
+                        <label>🎙 Microfone:</label>
+                        <select name="microfone" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Razoável">Razoável</option>
+                            <option value="Não consegui saber">Não consegui saber</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>📷 Câmera:</label>
+                        <select name="camera" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Razoável">Razoável</option>
+                            <option value="Não consegui saber">Não consegui saber</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>🖱 Mouse:</label>
+                        <select name="mouse" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Razoável">Razoável</option>
+                            <option value="Não consegui saber">Não consegui saber</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>📶 Internet:</label>
+                        <select name="internet" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Razoável">Razoável</option>
+                            <option value="Não consegui saber">Não consegui saber</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>💻 PC:</label>
+                        <select name="pc" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Razoável">Razoável</option>
+                            <option value="Não consegui saber">Não consegui saber</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mover os botões para fora da div campos-feedback -->
+            </div> <!-- Fim da div campos-feedback -->
             
-            // Formatar a data diretamente
-            const ano = hoje.getFullYear();
-            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-            const dia = String(hoje.getDate()).padStart(2, '0');
-            const dataFormatada = `${ano}-${mes}-${dia}`;
+            <button onclick="gerarFeedback()">Gerar Feedback</button>
+            <div id="resultado"></div>
+            <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
             
-            console.log('Data formatada:', dataFormatada);
-            document.getElementById('data').defaultValue = dataFormatada;
-
-            // Configurar horário atual
-            const timeString = hoje.toLocaleTimeString('pt-BR', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
-            });
-            document.getElementById('horario').value = timeString;
-
-            // Adicionar evento para mostrar/ocultar campo de outro conteúdo
-            document.getElementById('outroConteudo').addEventListener('change', function() {
-                document.getElementById('outroConteudoTexto').style.display = this.checked ? 'block' : 'none';
-            });
-
-            // Manter o código existente do slider
-            const slider = document.getElementById('chance');
-            const output = document.getElementById('chanceValue');
-            slider.oninput = function() {
-                output.textContent = this.value;
-            }
-        });  // <-- Adicionado o parêntese de fechamento aqui
-
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            setTheme(newTheme);
-        }
-
-        // Inicializar tema
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-
-        // Adicionar evento ao botão
-        document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
-    </script>
-    <script src="js/feedback-experimental.js"></script>
+            </div> <!-- Fim da div container -->
+            
+            <button class="theme-switch" id="themeSwitch">🌓</button>
+            
+            <script src="js/feedback-experimental.js"></script>
 </body>
 </html>
