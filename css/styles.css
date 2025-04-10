@@ -582,3 +582,16 @@ button:hover {
     line-height: 1.2;
     font-size: 0.95em;
 }
+
+/* Esconder a seta padrão de inputs com datalist (Chrome/Safari/Edge) */
+input[list]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none; /* Tentativa adicional */
+}
+
+/* Tentativa para Firefox (pode não funcionar) */
+input[list] {
+   /* Não há um seletor padrão e estável no Firefox para a seta do datalist */
+   /* A melhor abordagem seria remover a aparência padrão do input, 
+      mas isso pode afetar outros estilos. Vamos focar no Webkit por enquanto. */
+}
