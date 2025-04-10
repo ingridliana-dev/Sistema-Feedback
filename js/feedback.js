@@ -1,179 +1,3 @@
-// --- Lógica de Histórico Específica para #turma ---
-const HISTORICO_LIMITE_TURMA = 20;
-const HISTORICO_TURMA_KEY = 'historicoTurma'; // Chave específica
-
-function carregarHistoricoTurma() {
-    console.log("[Histórico Turma] Carregando..."); // Log
-    const datalist = document.getElementById('turma-list');
-    if (!datalist) {
-        console.error("[Histórico Turma] Erro: Datalist #turma-list não encontrado!"); // Log erro
-        return;
-    }
-
-    const historicoJSON = localStorage.getItem(HISTORICO_TURMA_KEY);
-    console.log("[Histórico Turma] Lido do localStorage:", historicoJSON); // Log
-    try {
-        const historico = JSON.parse(historicoJSON || '[]');
-        datalist.innerHTML = '';
-        historico.forEach(item => {
-            console.log("[Histórico Turma] Adicionando opção:", item); // Log
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
-        console.log("[Histórico Turma] Carregamento concluído."); // Log
-    } catch (e) {
-        console.error("[Histórico Turma] Erro ao parsear JSON do localStorage:", e); // Log erro
-        localStorage.removeItem(HISTORICO_TURMA_KEY); // Limpa chave inválida
-    }
-}
-
-function salvarHistoricoTurma(valor) {
-    console.log("[Histórico Turma] Tentando salvar valor:", valor); // Log
-    if (!valor || typeof valor !== 'string' || valor.trim() === '') {
-        console.log("[Histórico Turma] Valor inválido ou vazio, não salvando."); // Log
-        return;
-    }
-
-    let historico = [];
-    try {
-        historico = JSON.parse(localStorage.getItem(HISTORICO_TURMA_KEY) || '[]');
-        if (!Array.isArray(historico)) { // Verifica se é um array
-           console.warn("[Histórico Turma] Valor no localStorage não era um array. Resetando.");
-           historico = [];
-        }
-    } catch (e) {
-        console.error("[Histórico Turma] Erro ao ler/parsear histórico para salvar. Resetando.", e);
-        historico = [];
-    }
-
-    const valorTrimmed = valor.trim();
-
-    historico = historico.filter(item => item !== valorTrimmed); // Remove duplicados
-    historico.unshift(valorTrimmed); // Adiciona no início
-
-    if (historico.length > HISTORICO_LIMITE_TURMA) {
-        historico = historico.slice(0, HISTORICO_LIMITE_TURMA); // Limita tamanho
-    }
-
-    const historicoJSON = JSON.stringify(historico);
-    console.log("[Histórico Turma] Salvando no localStorage:", historicoJSON); // Log
-    try {
-        localStorage.setItem(HISTORICO_TURMA_KEY, historicoJSON);
-        console.log("[Histórico Turma] Salvo com sucesso!"); // Log
-    } catch (e) {
-        console.error("[Histórico Turma] Erro ao salvar no localStorage:", e); // Log erro
-        alert("Não foi possível salvar o histórico. Verifique as permissões do localStorage ou se o limite de armazenamento foi atingido.");
-    }
-}
-// --- Fim da Lógica de Histórico ---
-
-// --- Lógica de Histórico Específica para #professor ---
-const HISTORICO_LIMITE_PROFESSOR = 20;
-const HISTORICO_PROFESSOR_KEY = 'historicoProfessor';
-
-function carregarHistoricoProfessor() {
-    console.log("[Histórico Professor] Carregando...");
-    const datalist = document.getElementById('professor-list');
-    if (!datalist) {
-        console.error("[Histórico Professor] Erro: Datalist #professor-list não encontrado!");
-        return;
-    }
-    const historicoJSON = localStorage.getItem(HISTORICO_PROFESSOR_KEY);
-    console.log("[Histórico Professor] Lido do localStorage:", historicoJSON);
-    try {
-        const historico = JSON.parse(historicoJSON || '[]');
-        datalist.innerHTML = '';
-        historico.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
-        console.log("[Histórico Professor] Carregamento concluído.");
-    } catch (e) {
-        console.error("[Histórico Professor] Erro ao parsear JSON:", e);
-        localStorage.removeItem(HISTORICO_PROFESSOR_KEY);
-    }
-}
-
-function salvarHistoricoProfessor(valor) {
-    console.log("[Histórico Professor] Tentando salvar valor:", valor);
-    if (!valor || typeof valor !== 'string' || valor.trim() === '') return;
-    let historico = [];
-    try {
-        historico = JSON.parse(localStorage.getItem(HISTORICO_PROFESSOR_KEY) || '[]');
-        if (!Array.isArray(historico)) historico = [];
-    } catch (e) { historico = []; }
-    const valorTrimmed = valor.trim();
-    historico = historico.filter(item => item !== valorTrimmed);
-    historico.unshift(valorTrimmed);
-    if (historico.length > HISTORICO_LIMITE_PROFESSOR) {
-        historico = historico.slice(0, HISTORICO_LIMITE_PROFESSOR);
-    }
-    const historicoJSON = JSON.stringify(historico);
-    console.log("[Histórico Professor] Salvando:", historicoJSON);
-    try {
-        localStorage.setItem(HISTORICO_PROFESSOR_KEY, historicoJSON);
-        console.log("[Histórico Professor] Salvo com sucesso!");
-    } catch (e) {
-        console.error("[Histórico Professor] Erro ao salvar:", e);
-    }
-}
-// --- Fim da Lógica de Histórico #professor ---
-
-// --- Lógica de Histórico Específica para #ferramenta ---
-const HISTORICO_LIMITE_FERRAMENTA = 20;
-const HISTORICO_FERRAMENTA_KEY = 'historicoFerramenta';
-
-function carregarHistoricoFerramenta() {
-    console.log("[Histórico Ferramenta] Carregando...");
-    const datalist = document.getElementById('ferramenta-list');
-    if (!datalist) {
-        console.error("[Histórico Ferramenta] Erro: Datalist #ferramenta-list não encontrado!");
-        return;
-    }
-    const historicoJSON = localStorage.getItem(HISTORICO_FERRAMENTA_KEY);
-    console.log("[Histórico Ferramenta] Lido do localStorage:", historicoJSON);
-    try {
-        const historico = JSON.parse(historicoJSON || '[]');
-        datalist.innerHTML = '';
-        historico.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
-        console.log("[Histórico Ferramenta] Carregamento concluído.");
-    } catch (e) {
-        console.error("[Histórico Ferramenta] Erro ao parsear JSON:", e);
-        localStorage.removeItem(HISTORICO_FERRAMENTA_KEY);
-    }
-}
-
-function salvarHistoricoFerramenta(valor) {
-    console.log("[Histórico Ferramenta] Tentando salvar valor:", valor);
-    if (!valor || typeof valor !== 'string' || valor.trim() === '') return;
-    let historico = [];
-    try {
-        historico = JSON.parse(localStorage.getItem(HISTORICO_FERRAMENTA_KEY) || '[]');
-        if (!Array.isArray(historico)) historico = [];
-    } catch (e) { historico = []; }
-    const valorTrimmed = valor.trim();
-    historico = historico.filter(item => item !== valorTrimmed);
-    historico.unshift(valorTrimmed);
-    if (historico.length > HISTORICO_LIMITE_FERRAMENTA) {
-        historico = historico.slice(0, HISTORICO_LIMITE_FERRAMENTA);
-    }
-    const historicoJSON = JSON.stringify(historico);
-    console.log("[Histórico Ferramenta] Salvando:", historicoJSON);
-    try {
-        localStorage.setItem(HISTORICO_FERRAMENTA_KEY, historicoJSON);
-        console.log("[Histórico Ferramenta] Salvo com sucesso!");
-    } catch (e) {
-        console.error("[Histórico Ferramenta] Erro ao salvar:", e);
-    }
-}
-// --- Fim da Lógica de Histórico #ferramenta ---
-
 function formatarData(data) {
     if (!data) return ''; // Retorna vazio se data for inválida
     const partes = data.split('-');
@@ -191,7 +15,7 @@ function formatarData(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("[DOM] DOM carregado para feedback-aula."); // Log
+    console.log("[DOM FA] DOM carregado para feedback-aula."); // FA = Feedback Aula
     // Configurar data atual
     try {
         const hoje = new Date();
@@ -251,18 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (e) {
         console.error("[DOM] Erro ao inicializar tema:", e);
     }
-    
-    // Carregar históricos ao iniciar
-    console.log("[DOM] Chamando carregadores de histórico."); 
-    carregarHistoricoTurma();
-    carregarHistoricoProfessor();
-    carregarHistoricoFerramenta();
-
-    // Adicionar evento para controlar visibilidade do textarea
-    document.getElementById('tipoParaCasa').addEventListener('change', function() {
-        const paraCasaTexto = document.getElementById('paraCasaTexto');
-        paraCasaTexto.style.display = this.value === 'personalizado' ? 'block' : 'none';
-    });
 });
 
 function toggleParaCasaTexto() {
@@ -279,7 +91,7 @@ function toggleParaCasaTexto() {
 }
 
 function gerarFeedback() {
-    console.log("[Feedback] Função gerarFeedback iniciada."); 
+    console.log("[Feedback FA] Função gerarFeedback iniciada.");
     const turmaInput = document.getElementById('turma');
     const dataInput = document.getElementById('data');
     const linkAulaInput = document.getElementById('linkAula');
@@ -317,17 +129,17 @@ function gerarFeedback() {
     const tipoParaCasa = tipoParaCasaSelect.value;
     const paraCasaTexto = paraCasaTextoInput.value;
 
-    // Salvar históricos
-    console.log("[Feedback] Chamando salvadores de histórico."); 
-    salvarHistoricoTurma(turma);
-    salvarHistoricoProfessor(professor);
-    salvarHistoricoFerramenta(ferramenta);
-    
-    // Atualizar datalists imediatamente
-    console.log("[Feedback] Chamando carregadores de histórico após salvar."); 
-    carregarHistoricoTurma();
-    carregarHistoricoProfessor();
-    carregarHistoricoFerramenta();
+    // Salvar históricos usando a função genérica
+    console.log("[Feedback FA] Salvando históricos...");
+    salvarHistorico(turmaInput.id, turma);
+    salvarHistorico(professorInput.id, professor);
+    salvarHistorico(ferramentaInput.id, ferramenta);
+    // Opcional: salvar outros campos de texto se tiverem datalist
+    if(linkAulaInput.hasAttribute('list')) salvarHistorico(linkAulaInput.id, linkAula);
+    if(objetivosInput.hasAttribute('list')) salvarHistorico(objetivosInput.id, objetivos);
+    if(tipoParaCasa === 'personalizado' && paraCasaTextoInput.hasAttribute('list')) {
+        salvarHistorico(paraCasaTextoInput.id, paraCasaTexto);
+    }
 
     const paraCasaPadrao = "O aluno pode acessar o portal e realizar as atividades para casa da aula atual e também das anteriores, qualquer dúvida, anotar e trazer na próxima semana.";
     const textoPraCasa = tipoParaCasa === 'padrao' ? paraCasaPadrao : paraCasaTexto;
@@ -355,17 +167,17 @@ ${textoPraCasa}
     if(resultado) {
         resultado.textContent = feedback;
         resultado.style.display = 'block';
-        console.log("[Feedback] Feedback gerado e exibido.");
+        console.log("[Feedback FA] Feedback gerado e exibido.");
     } else {
-         console.error("[Feedback] Erro: Elemento #resultado não encontrado para exibir feedback.");
+         console.error("[Feedback FA] Erro: Elemento #resultado não encontrado para exibir feedback.");
     }
     if(copyButton) {
         copyButton.style.display = 'block';
-        console.log("[Feedback] Botão Copiar exibido.");
+        console.log("[Feedback FA] Botão Copiar exibido.");
     } else {
-        console.warn("[Feedback] Botão #copyButton não encontrado para exibir.");
+        console.warn("[Feedback FA] Botão #copyButton não encontrado para exibir.");
     }
-    console.log("[Feedback] Função gerarFeedback concluída.");
+    console.log("[Feedback FA] Função gerarFeedback concluída.");
 }
 
 function copiarTexto() {

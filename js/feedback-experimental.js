@@ -59,12 +59,21 @@ function formatarData(data) {
 }
 
 function gerarFeedback() {
+    console.log("[Feedback Exp] Gerando feedback...");
     const presenca = document.getElementById('presenca').value;
     const data = formatarData(document.getElementById('data').value);
     const horario = document.getElementById('horario').value;
     const nivel = document.getElementById('nivel').value;
-    const nomeAluno = document.getElementById('nomeAluno').value;
+    const nomeAlunoInput = document.getElementById('nomeAluno');
+    const outroConteudoTextoInput = document.getElementById('outroConteudoTexto');
+    const desenvolvimentoInput = document.getElementById('desenvolvimento');
+    
+    const nomeAluno = nomeAlunoInput.value;
     const idade = document.getElementById('idade').value;
+
+    // Salvar nome do aluno sempre que gerar
+    console.log("[Feedback Exp] Salvando histórico nomeAluno...");
+    salvarHistorico(nomeAlunoInput.id, nomeAluno);
 
     if (presenca === 'nao-compareceu') {
         const feedback = `------------------------
@@ -82,22 +91,34 @@ Após aguardar durante 1h, o aluno não compareceu.
         resultado.textContent = feedback;
         resultado.style.display = 'block';
         document.getElementById('copyButton').style.display = 'block';
+        console.log("[Feedback Exp] Aluno não compareceu, feedback gerado.");
         return;
     }
 
     // Código para quando o aluno comparece
+    const outroConteudoCheckbox = document.getElementById('outroConteudo');
+    const outroConteudoTextoValue = outroConteudoTextoInput.value;
+    const desenvolvimentoValue = desenvolvimentoInput.value;
+
+    // Salvar histórico dos campos relevantes ANTES de gerar o texto final
+    console.log("[Feedback Exp] Salvando históricos adicionais...");
+    if (outroConteudoCheckbox.checked && outroConteudoTextoInput.hasAttribute('list')) {
+        salvarHistorico(outroConteudoTextoInput.id, outroConteudoTextoValue);
+    }
+    if (desenvolvimentoInput.hasAttribute('list')) {
+        salvarHistorico(desenvolvimentoInput.id, desenvolvimentoValue);
+    }
+    // NÃO precisa recarregar os datalists aqui
+
     const conteudosSelecionados = [...document.querySelectorAll('input[name="conteudo"]:checked')]
         .map(input => {
             if (input.value === 'outro') {
-                const outroTexto = document.getElementById('outroConteudoTexto').value;
-                return outroTexto ? outroTexto : 'outro';
+                return outroConteudoCheckbox.checked ? (outroConteudoTextoValue || 'outro') : null;
             }
             return input.value;
         })
+        .filter(value => value !== null) 
         .join(', ');
-
-    // Capturar o valor do desenvolvimento
-    const desenvolvimento = document.getElementById('desenvolvimento').value;
 
     const cursos = [...document.querySelectorAll('input[name="curso"]:checked')]
         .map(input => input.value)
@@ -125,7 +146,7 @@ Idade: ${idade}
 
 📖 Conteúdo aplicado: ${conteudosSelecionados}
 
-📝 Desenvolvimento: ${desenvolvimento}
+📝 Desenvolvimento: ${desenvolvimentoValue}
 
 ✅ Tem condições de frequentar o Curso?
 📚 Curso(s) indicado(s): ${cursos}
@@ -144,6 +165,7 @@ Idade: ${idade}
     resultado.textContent = feedback;
     resultado.style.display = 'block';
     document.getElementById('copyButton').style.display = 'block';
+    console.log("[Feedback Exp] Feedback para aluno presente gerado.");
 }
 
 function copiarTexto() {
