@@ -348,9 +348,11 @@ button:hover {
 
 /* Ajuste específico para o botão copiar */
 #copyButton {
+    grid-column: 1 / -1; /* Faz o botão ocupar todas as colunas do grid */
+    display: block; /* Garante que margin: auto funcione */
     width: 200px;
     margin: 1rem auto;
-    display: none;
+    /* display: none; // Mantido, pois é controlado por JS */
 }
 
 .button-group.primary {
@@ -573,9 +575,10 @@ button:hover {
 
 /* Estilo específico para o botão na página de feedback sem agendamento */
 #gerarFeedbackBtn {
+    grid-column: 1 / -1; /* Faz o botão ocupar todas as colunas do grid */
     max-width: fit-content;
     margin: 20px auto;
-    display: block;
+    display: block; /* display: block e margin: auto funcionam bem juntos */
     padding: 6px 20px;
     width: auto;
     height: auto;
