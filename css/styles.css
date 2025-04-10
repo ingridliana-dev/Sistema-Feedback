@@ -10,8 +10,13 @@
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     --button-hover: #2c5282;
     --disabled-color: #a0aec0;
-    --success-color: #4ade80;  /* Verde mais claro para o estado normal */
-    --success-hover: #22c55e;  /* Verde mais escuro para o hover */
+    --success-color: #48bb78;  /* Verde usado no copy button */
+    --success-hover: #38a169;  /* Hover verde */
+    --danger-color: #dc3545; /* Vermelho para estado copiado */
+    --input-background: var(--card-background); /* Fundo do input = fundo do card por padrão */
+    /* Variáveis verdes para botões da home (se decidirmos mover para cá) */
+    /* --button-green-bg: #48bb78; */
+    /* --button-green-hover: #38a169; */
 }
 
 [data-theme="dark"] {
@@ -19,131 +24,99 @@
     --secondary-color: #4299e1;
     --background-color: #171923;
     --text-color: #cbd5e0;
-    --card-background: #1a202c;  /* Cor mais escura para form-group */
+    --card-background: #1a202c;  
     --border-color: #4a5568;
     --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     --button-hover: #3182ce;
     --disabled-color: #4a5568;
-    --input-background: #2d3748;  /* Cor mais clara para inputs */
-    /* Atualize as variáveis root para incluir as cores do botão de copiar */
+    --input-background: #2d3748;  /* Fundo do input mais escuro no dark */
+    --success-color: #68d391; 
+    --success-hover: #9ae6b4;
+    --danger-color: #f56565;
+     /* Variáveis verdes para botões da home (se decidirmos mover para cá) */
+    /* --button-green-bg: #68d391; */
+    /* --button-green-hover: #9ae6b4; */
+    /* Remover definição duplicada de [data-theme="dark"] */
 }
 
-[data-theme="dark"] {
-    --primary-color: #90cdf4;
-    --secondary-color: #4299e1;
-    --background-color: #171923;
-    --text-color: #cbd5e0;
-    --card-background: #1a202c;  /* Cor mais escura para form-group */
-    --border-color: #4a5568;
-    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --button-hover: #3182ce;
-    --disabled-color: #4a5568;
-    --input-background: #2d3748;  /* Cor mais clara para inputs */
-}
-
-/* Atualizar os inputs e selects para usar cor de fundo mais escura no tema escuro */
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-    background-color: var(--input-background);
-}
-
-[data-theme="dark"] .checkbox-group label {
-    background-color: var(--input-background);
-}
-
-[data-theme="dark"] .checkbox-group label:hover {
-    background-color: var(--card-background);
-    border-color: var(--secondary-color);
-}
-
-/* Atualizar os elementos existentes para usar as variáveis */
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-.form-group {
-    background: var(--card-background);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .form-group {
-    border-color: var(--border-color);
-}
-
-input, textarea, select {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-
-input:focus, textarea:focus, select:focus {
-    border-color: var(--secondary-color);
-}
-
-select {
-    background-color: var(--card-background);
-    color: var(--text-color);
-}
-
-.checkbox-group label {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-
-.checkbox-group label:hover {
-    background-color: var(--border-color);
-}
-
-#resultado {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-
+/* Estilos Globais */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
+    /* max-width: 900px; /* Movido para .container para permitir que body seja full width */
+    margin: 0; /* Remover margin auto daqui */
+    padding: 20px; /* Padding geral no body */
     background-color: var(--background-color);
-    color: var(--primary-color);
+    color: var(--text-color); /* Cor de texto padrão */
+    line-height: 1.6;
 }
 
+/* Container Principal (para páginas de formulário) */
+.container {
+    max-width: 1200px; /* Largura máxima para o conteúdo */
+    margin: 30px auto; /* Centraliza o container */
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Layout padrão em 2 colunas */
+    gap: 2rem;
+    background: var(--card-background); /* Fundo adicionado para contraste */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color); /* Borda sutil */
+}
+
+/* Título Principal (compartilhado) */
 h1 {
+    grid-column: 1 / -1; /* Ocupa todas as colunas no grid do container */
     text-align: center;
     color: var(--primary-color);
-    margin-bottom: 30px;
+    margin-bottom: 2rem; /* Ajuste */
     font-size: 2.2em;
     border-bottom: 3px solid var(--secondary-color);
     padding-bottom: 10px;
 }
 
-/* Remover esta segunda definição que está sobrescrevendo */
-.form-group {
-    
-    padding: 20px;
-    border-radius: var(--border-radius);
+/* Botão Voltar (compartilhado) */
+.back-button {
+    grid-column: 1 / -1; /* Ocupa a linha inteira */
+    color: var(--text-color); /* Usa a cor de texto padrão */
+    text-decoration: none;
+    display: inline-block;
     margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
-/* Manter apenas a primeira definição que usa as variáveis */
-.form-group {
-    background: var(--card-background);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
+[data-theme="dark"] .back-button {
+    color: var(--text-color); /* Também usa a cor de texto padrão do tema escuro */
 }
 
+.back-button:hover {
+    color: var(--secondary-color);
+}
+
+/* Grupos de Formulário */
+.form-group {
+    /* Não precisa de background próprio se o .container já tiver */
+    padding: 0; /* Remover padding daqui, controlar espaçamento interno com inputs/labels */
+    border-radius: 0;
+    margin-bottom: 0; /* Gap do grid controla o espaçamento vertical */
+    box-shadow: none;
+    border: none;
+    /* background: var(--card-background); // Removido */
+    /* padding: 20px; // Removido */
+    /* border-radius: var(--border-radius); // Removido */
+    /* margin-bottom: 20px; // Removido */
+    /* box-shadow: var(--box-shadow); // Removido */
+    /* border: 1px solid var(--border-color); // Removido */
+    /* Remover definições duplicadas */
+}
+
+/* Ocupar linha inteira */
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Labels */
 label {
     display: block;
     margin-bottom: 8px;
@@ -151,306 +124,253 @@ label {
     color: var(--primary-color);
 }
 
-input, textarea, select {
+/* Inputs, Textarea, Select (Estilos Base) */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
     width: 100%;
     padding: 12px;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Borda mais sutil */
     border-radius: var(--border-radius);
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; /* Remover, usar gap do grid */
     font-size: 1em;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
     background-color: var(--input-background);
     color: var(--text-color);
 }
 
-[data-theme="dark"] {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
+/* Estilos específicos para tema escuro já tratados pela variável --input-background */
+/* Remover [data-theme="dark"] { ... } solto */
 
+/* Foco */
 input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 0 3px rgba(var(--rgb-secondary-color, 43, 108, 176), 0.3); /* Usar var p/ cor */
+    /* Adicionar --rgb-secondary-color às variáveis :root e [data-theme="dark"] */
 }
 
+/* Textarea */
 textarea {
     resize: vertical;
     min-height: 100px;
 }
 
+/* Select (manter estilo com seta SVG) */
 select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
+    padding-right: 2.5rem; /* Espaço para a seta */
 }
 
+/* Botões Genéricos (Aplicado a todos os <button>) */
 button {
     background-color: var(--secondary-color);
     color: white;
-    padding: 6px 24px;
+    padding: 10px 24px; /* Ajuste de padding */
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1em;
     font-weight: 600;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin-bottom: 15px;
-    line-height: 1;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    /* width: 100%; /* Remover largura 100% */
+    /* margin-bottom: 15px; /* Remover margin */
+    line-height: 1.5; /* Ajuste */
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: var(--button-hover); /* Usar variável */
 }
 
-.copy-button {
+button:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Botão Primário (se necessário diferenciar do botão padrão) */
+button.primary-button { 
+    /* Pode ter estilos adicionais, ex: background diferente */
+}
+
+/* Botão Copiar */
+.copy-button { /* Estilo usando classe */
+    grid-column: 1 / -1; 
+    display: block; 
+    width: fit-content; /* Ajustar largura ao conteúdo */
+    max-width: 200px; /* Manter largura máxima */
+    margin: 1rem auto;
     background-color: var(--success-color);
-    margin: 15px auto;
-    color: white;
-    max-width: 200px;
-    display: block;
 }
 
 .copy-button:hover {
     background-color: var(--success-hover);
 }
 
+/* Botão Gerar Feedback Específico (feedback-sem-alunos) */
+#gerarFeedbackBtn {
+    grid-column: 1 / -1; 
+    display: block; 
+    width: fit-content; /* Ajustar largura */
+    max-width: fit-content; /* Remover max-width anterior */
+    margin: 20px auto;
+    padding: 10px 24px; /* Usar padding padrão */
+    /* Remover width, height, line-height, font-size específicos, herdar de button */
+}
+
+/* Botão Gerar Feedback Específico (feedback-experimental) */
+#gerarFeedbackExpBtn.primary-button { /* Usar combinação */
+     grid-column: 1 / -1; /* Centraliza no grid */
+     width: fit-content; 
+     margin-left: auto; /* Centraliza */
+     margin-right: auto;
+     margin-top: 1rem; /* Espaçamento */
+}
+
+/* Resultado */
 #resultado {
+    grid-column: 1 / -1;
     white-space: pre-wrap;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Borda mais sutil */
     border-radius: var(--border-radius);
-    padding: 20px;
-    margin: 20px 0;
-    background-color: var(--card-background);
+    padding: 1.5rem; /* Ajuste padding */
+    margin: 1rem 0 0 0; /* Margem apenas acima */
+    background-color: var(--input-background); /* Usar fundo de input */
     color: var(--text-color);
     font-family: monospace;
     font-size: 0.9em;
     line-height: 1.5;
     width: 100%;
     box-sizing: border-box;
-    min-height: 200px;
-    box-shadow: var(--box-shadow);
-    display: none; /* Esconde o resultado inicialmente */
+    min-height: 150px; /* Reduzir altura mínima */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Sombra interna sutil */
+    display: none; 
 }
 
 [data-theme="dark"] #resultado {
-    background-color: #0f172a;
+    background-color: #0f172a; /* Manter fundo bem escuro para destaque */
     color: #f1f5f9;
     border-color: var(--border-color);
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 15px;
-        margin: 15px;
-    }
-
-    .form-group {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-}
-
-::placeholder {
-    color: #95a5a6;
-    opacity: 0.7;
-}
-
-/* Adicione após as variáveis root e antes do estilo do body */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+/* Checkboxes e Grupos Específicos */
+.checkbox-group, 
+.content-checkbox-group, 
+.rhythm-checkbox-group {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    /* grid-template-columns: repeat(3, 1fr); /* Mover para @media */
+    gap: 0.75rem; /* Reduzir gap */
+    padding: 0.5rem 0; /* Ajustar padding */
+    grid-column: 1 / -1; /* Ocupar toda a largura */
 }
 
-.container h1 {
-    grid-column: 1 / -1;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.back-button {
-    color: black; /* Cor preta para tema claro (padrão) */
-    text-decoration: none;
-    display: inline-block;
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-/* Adiciona regra específica para tema escuro */
-[data-theme="dark"] .back-button {
-    color: white; /* Cor branca para tema escuro */
-}
-
-.back-button:hover {
-    color: var(--secondary-color);
-}
-
-.form-group {
-    background: var(--card-background);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
-}
-
-/* Campos que devem ocupar linha inteira */
-.form-group.full-width {
-    grid-column: 1 / -1;
-}
-
-/* Área de resultado */
-#resultado {
-    grid-column: 1 / -1;
-    min-height: 200px;
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--form-bg);
-    border-radius: 8px;
-    white-space: pre-wrap;
-}
-
-/* Botões e resultado */
-.button-group {
-    grid-column: 1 / -1;
+.checkbox-group label, 
+.content-checkbox-group label, 
+.rhythm-checkbox-group label {
     display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-    width: 100%;
-}
-
-.button-group button {
-    width: 200px; /* Largura fixa para os botões */
-}
-
-#resultado {
-    grid-column: 1 / -1;
-    min-height: 200px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    background: var(--card-background);
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px; /* Ajustar padding */
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    white-space: pre-wrap;
-    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--input-background);
+    font-size: 0.95em;
+    font-weight: 500; /* Mais leve */
 }
 
-/* Ajuste específico para o botão copiar */
-#copyButton {
-    grid-column: 1 / -1; /* Faz o botão ocupar todas as colunas do grid */
-    display: block; /* Garante que margin: auto funcione */
-    width: 200px;
-    margin: 1rem auto;
-    /* display: none; // Mantido, pois é controlado por JS */
+.checkbox-group input[type="checkbox"]:checked + label, /* Estilo quando selecionado */
+.content-checkbox-group input[type="checkbox"]:checked + label,
+.rhythm-checkbox-group input[type="checkbox"]:checked + label {
+  border-color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: white;
 }
 
-.button-group.primary {
-    margin-bottom: 2rem;
+/* Esconder o checkbox nativo */
+.checkbox-group input[type="checkbox"],
+.content-checkbox-group input[type="checkbox"],
+.rhythm-checkbox-group input[type="checkbox"] {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
 }
 
-.button-group.secondary {
-    margin-top: 1rem;
-}
-
-#resultado {
-    grid-column: 1 / -1;
-    min-height: 200px;
-    padding: 1.5rem;
-    background: var(--form-bg);
-    border-radius: 8px;
-    white-space: pre-wrap;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-        padding: 1rem;
+/* Layouts de grid específicos para checkboxes */
+@media (min-width: 600px) { /* Aplicar 3 colunas apenas em telas maiores */
+    .checkbox-group, 
+    .content-checkbox-group, 
+    .rhythm-checkbox-group {
+        grid-template-columns: repeat(3, 1fr);
     }
+    /* Posicionamento específico (mantido) */
+    .content-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+    /* ... outros ... */
+    .rhythm-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+    /* ... outros ... */
+    .checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
+    /* ... outros ... */
 }
+
+/* Grupo de Equipamentos (feedback-experimental) */
 .equipment-group {
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo */
+    gap: 1.5rem; /* Ajuste gap */
     padding: 1rem 0;
 }
 
 .equipment-group div {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Posicionamento específico dos equipamentos */
-.equipment-group div:nth-child(1) { /* Microfone */
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.equipment-group div:nth-child(2) { /* Câmera */
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.equipment-group div:nth-child(3) { /* Mouse */
-    grid-column: 1;
-    grid-row: 3;
-}
-
-.equipment-group div:nth-child(4) { /* Internet */
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.equipment-group div:nth-child(5) { /* PC */
-    grid-column: 2;
-    grid-row: 2;
+    /* display: grid; /* Remover grid interno */
+    /* grid-template-columns: 120px 1fr; */
+    /* align-items: center; */
+    /* gap: 10px; */
 }
 
 .equipment-group label {
-    margin: 0;
-    white-space: nowrap;
-    color: var(--text-color);
+    /* margin: 0; */ /* Herdar label padrão */
+    /* white-space: nowrap; */
+    /* color: var(--text-color); */
+    margin-bottom: 6px; /* Espaço antes do select */
 }
 
 .equipment-group select {
     width: 100%;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */ /* Herdar input padrão */
 }
 
-@media (max-width: 768px) {
-    .equipment-group {
-        grid-template-columns: 1fr;
-    }
-    
-    .equipment-group div {
-        grid-column: 1 !important;
-    }
-}
+/* Remover @media específico de equipment-group, pois repeat(auto-fit) cuida disso */
 
+/* Textarea 'Outro Conteúdo' */
 #outroConteudoTexto {
-    margin-top: 12px;
+    margin-top: 1rem; /* Mais espaço */
     display: none;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+#outroConteudoTexto[style*="display: block"] { /* Animação ao aparecer */
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.checkbox-group + textarea {
-    margin-top: 12px;
+.checkbox-group + textarea { /* Ajuste para espaço entre checkbox e textarea */
+    margin-top: 1rem;
 }
 
-/* Adicione estas definições do theme-switch */
+/* Theme Switch (manter como está) */
 .theme-switch {
     position: fixed;
     top: 20px;
@@ -474,136 +394,57 @@ button:hover {
     transform: scale(1.1);
 }
 
+/* Textarea 'Para Casa' */
 #paraCasaTexto {
     display: none;
     margin-top: 1rem;
     width: 100%;
 }
 
-/* Container para os botões e resultado */
+/* Container de Ações (feedback-experimental) */
 .form-actions {
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center; /* Centraliza itens como o aviso */
     gap: 1rem;
     width: 100%;
-    padding: 1.5rem;
-    background: var(--card-background);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-sizing: border-box;
-    margin: 0;
-    grid-column: 1 / -1; /* Garante que ocupe toda a largura */
+    padding: 1.5rem 0 0 0; /* Padding apenas acima */
+    /* Remover estilos de card duplicados */
+    /* background: var(--card-background); */
+    /* border-radius: var(--border-radius); */
+    /* border: 1px solid var(--border-color); */
+    /* box-sizing: border-box; */
+    /* margin: 0; */
 }
 
-/* Ajuste para campos-feedback */
-#campos-feedback {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    width: 100%;
-    padding: 1rem 0;
-}
-
-#campos-feedback .form-group {
-    margin-bottom: 2rem;
-    padding: 2rem;
-}
-
-/* Melhorias nos checkboxes */
-/* Estilo base compartilhado para todos os grupos de checkbox */
-.checkbox-group,
-.content-checkbox-group,
-.rhythm-checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 1rem 0;
-}
-
-/* Estilo visual compartilhado para todos os labels de checkbox */
-.checkbox-group label,
-.content-checkbox-group label,
-.rhythm-checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: var(--card-background);
-}
-
-/* Estilo dos checkboxes */
-.checkbox-group input[type="checkbox"],
-.content-checkbox-group input[type="checkbox"],
-.rhythm-checkbox-group input[type="checkbox"] {
-    margin: 0;
-    width: auto;
-    cursor: pointer;
-}
-
-/* Mantém os posicionamentos específicos existentes */
-/* Conteúdo */
-.content-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
-.content-checkbox-group label:nth-child(2) { grid-area: 2 / 1; }
-.content-checkbox-group label:nth-child(3) { grid-area: 1 / 2; }
-.content-checkbox-group label:nth-child(4) { grid-area: 2 / 2; }
-.content-checkbox-group label:nth-child(5) { grid-area: 1 / 3; }
-.content-checkbox-group label:nth-child(6) { grid-area: 2 / 3; }
-
-/* Ritmo */
-.rhythm-checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
-.rhythm-checkbox-group label:nth-child(2) { grid-area: 1 / 2; }
-.rhythm-checkbox-group label:nth-child(3) { grid-area: 1 / 3; }
-
-/* Cursos (mantém o layout existente) */
-.checkbox-group label:nth-child(1) { grid-area: 1 / 1; }
-.checkbox-group label:nth-child(2) { grid-area: 2 / 1; }
-.checkbox-group label:nth-child(3) { grid-area: 3 / 1; }
-.checkbox-group label:nth-child(4) { grid-area: 4 / 1; }
-.checkbox-group label:nth-child(5) { grid-area: 1 / 2; }
-.checkbox-group label:nth-child(6) { grid-area: 2 / 2; }
-.checkbox-group label:nth-child(7) { grid-area: 3 / 2; }
-.checkbox-group label:nth-child(8) { grid-area: 4 / 2; }
-.checkbox-group label:nth-child(9) { grid-area: 1 / 3; }
-.checkbox-group label:nth-child(10) { grid-area: 2 / 3; }
-.checkbox-group label:nth-child(11) { grid-area: 3 / 3; }
-
-/* Estilo específico para o botão na página de feedback sem agendamento */
-#gerarFeedbackBtn {
-    grid-column: 1 / -1; /* Faz o botão ocupar todas as colunas do grid */
-    max-width: fit-content;
-    margin: 20px auto;
-    display: block; /* display: block e margin: auto funcionam bem juntos */
-    padding: 6px 20px;
-    width: auto;
-    height: auto;
-    line-height: 1.2;
-    font-size: 0.95em;
-}
-
-/* Esconder a seta padrão de inputs com datalist (Chrome/Safari/Edge) */
-input[list]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none; /* Tentativa adicional */
-}
-
-/* Tentativa para Firefox (pode não funcionar) */
-input[list] {
-   /* Não há um seletor padrão e estável no Firefox para a seta do datalist */
-   /* A melhor abordagem seria remover a aparência padrão do input, 
-      mas isso pode afetar outros estilos. Vamos focar no Webkit por enquanto. */
-}
-
-/* Estilo para avisos abaixo de botões desabilitados */
+/* Aviso abaixo do botão (feedback-experimental) */
 .feedback-aviso {
-    font-size: 0.85em; /* Tamanho menor */
-    color: var(--secondary-color); /* Cor discreta, pode ser ajustada */
-    text-align: center; /* Centraliza o texto */
-    margin-top: -0.5rem; /* Aproxima um pouco do botão acima */
-    margin-bottom: 1rem; /* Espaço abaixo */
+    font-size: 0.85em; 
+    color: var(--secondary-color); 
+    text-align: center; 
+    margin-top: -0.5rem; /* Ajuste para ficar mais próximo do botão */
+    margin-bottom: 1rem; 
+}
+
+/* Media Query Geral para Telas Menores */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        grid-template-columns: 1fr; /* Coluna única */
+        padding: 1.5rem;
+        margin: 15px auto;
+        gap: 1.5rem;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+     input, textarea, select, button {
+        font-size: 0.95em; /* Ajuste geral de fonte */
+    }
+    .checkbox-group, .content-checkbox-group, .rhythm-checkbox-group {
+        grid-template-columns: 1fr; /* Checkboxes em coluna única */
+    }
 }

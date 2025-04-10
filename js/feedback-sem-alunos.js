@@ -115,16 +115,33 @@ Contamos com o apoio de todos para que as aulas aconteçam da melhor maneira pos
 }
 
 function copiarTexto() {
-    const texto = document.getElementById('resultado')?.textContent;
-    if (texto && navigator.clipboard) {
-        navigator.clipboard.writeText(texto).then(() => {
-            console.log("[Copiar SA] Texto copiado.");
-            alert('Texto copiado com sucesso!');
-        }, (err) => {
-            console.error('[Copiar SA] Falha ao copiar:', err);
-            alert('Falha ao copiar o texto.');
-        });
-    } else { /* ... tratamento de erro ... */ }
+    const resultadoDiv = document.getElementById('resultado');
+    const copyButton = document.getElementById('copyButton');
+    const texto = resultadoDiv?.textContent;
+
+    if (!texto || !copyButton || !navigator.clipboard) {
+        console.error("[Copiar SA] Erro: Elemento não encontrado ou clipboard indisponível.");
+        if (!navigator.clipboard) alert("Seu navegador não suporta a cópia.");
+        return;
+    }
+
+    navigator.clipboard.writeText(texto).then(() => {
+        console.log("[Copiar SA] Texto copiado.");
+        const originalText = copyButton.textContent;
+        const originalBgColor = copyButton.style.backgroundColor;
+        
+        copyButton.textContent = 'Copiado! ✅';
+        copyButton.style.backgroundColor = '#dc3545';
+        copyButton.disabled = true;
+        setTimeout(() => {
+            copyButton.textContent = originalText;
+            copyButton.style.backgroundColor = originalBgColor || '';
+            copyButton.disabled = false;
+        }, 2000);
+    }, (err) => {
+        console.error('[Copiar SA] Falha ao copiar:', err);
+        alert('Falha ao copiar o texto.');
+    });
 }
 
 function setTheme(theme) {

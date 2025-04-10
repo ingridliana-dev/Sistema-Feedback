@@ -181,20 +181,46 @@ ${textoPraCasa}
 }
 
 function copiarTexto() {
-    const texto = document.getElementById('resultado')?.textContent;
-    if (texto && navigator.clipboard) {
-        navigator.clipboard.writeText(texto).then(() => {
-            console.log("[Copiar] Texto copiado com sucesso!");
-            alert('Texto copiado com sucesso!');
-        }, (err) => {
-            console.error('[Copiar] Falha ao copiar texto: ', err);
-            alert('Falha ao copiar o texto.');
-        });
-    } else {
-        if (!texto) console.error("[Copiar] Erro: Elemento #resultado não encontrado ou vazio.");
-        if (!navigator.clipboard) console.error("[Copiar] Erro: navigator.clipboard não está disponível (talvez HTTPS seja necessário).");
-         alert('Erro ao copiar texto. Verifique o console.');
+    const resultadoDiv = document.getElementById('resultado');
+    const copyButton = document.getElementById('copyButton'); // Pega o botão
+    const texto = resultadoDiv?.textContent;
+
+    if (!texto) {
+        console.error("[Copiar FA] Erro: Não há texto para copiar.");
+        return;
     }
+    if (!navigator.clipboard) {
+        console.error("[Copiar FA] Erro: navigator.clipboard não disponível.");
+        alert("Seu navegador não suporta a cópia para a área de transferência."); // Fallback ou info
+        return;
+    }
+    if (!copyButton) {
+        console.error("[Copiar FA] Erro: Botão #copyButton não encontrado.");
+        return; // Não pode dar feedback no botão se não o encontrar
+    }
+
+    navigator.clipboard.writeText(texto).then(() => {
+        console.log("[Copiar FA] Texto copiado com sucesso!");
+        
+        // Feedback visual no botão
+        const originalText = copyButton.textContent;
+        const originalBgColor = copyButton.style.backgroundColor; // Guarda a cor original (se houver inline)
+        
+        copyButton.textContent = 'Copiado! ✅';
+        copyButton.style.backgroundColor = '#dc3545'; // Vermelho (cor de perigo do Bootstrap)
+        copyButton.disabled = true; 
+
+        // Reverte após 2 segundos
+        setTimeout(() => {
+            copyButton.textContent = originalText;
+            copyButton.style.backgroundColor = originalBgColor || ''; // Restaura ou remove o inline
+            copyButton.disabled = false;
+        }, 2000); 
+
+    }, (err) => {
+        console.error('[Copiar FA] Falha ao copiar texto: ', err);
+        alert('Falha ao copiar o texto. Verifique o console.'); // Mantém alerta para erro
+    });
 }
 
 function setTheme(theme) {
