@@ -281,11 +281,16 @@ button:hover {
 }
 
 .back-button {
-    color: white;
+    color: black; /* Cor preta para tema claro (padrão) */
     text-decoration: none;
     display: inline-block;
     margin-bottom: 20px;
     font-weight: 500;
+}
+
+/* Adiciona regra específica para tema escuro */
+[data-theme="dark"] .back-button {
+    color: white; /* Cor branca para tema escuro */
 }
 
 .back-button:hover {
@@ -293,10 +298,12 @@ button:hover {
 }
 
 .form-group {
-    background: var(--form-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--card-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
 }
 
 /* Campos que devem ocupar linha inteira */
