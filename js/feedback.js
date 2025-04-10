@@ -68,6 +68,112 @@ function salvarHistoricoTurma(valor) {
 }
 // --- Fim da Lógica de Histórico ---
 
+// --- Lógica de Histórico Específica para #professor ---
+const HISTORICO_LIMITE_PROFESSOR = 20;
+const HISTORICO_PROFESSOR_KEY = 'historicoProfessor';
+
+function carregarHistoricoProfessor() {
+    console.log("[Histórico Professor] Carregando...");
+    const datalist = document.getElementById('professor-list');
+    if (!datalist) {
+        console.error("[Histórico Professor] Erro: Datalist #professor-list não encontrado!");
+        return;
+    }
+    const historicoJSON = localStorage.getItem(HISTORICO_PROFESSOR_KEY);
+    console.log("[Histórico Professor] Lido do localStorage:", historicoJSON);
+    try {
+        const historico = JSON.parse(historicoJSON || '[]');
+        datalist.innerHTML = '';
+        historico.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            datalist.appendChild(option);
+        });
+        console.log("[Histórico Professor] Carregamento concluído.");
+    } catch (e) {
+        console.error("[Histórico Professor] Erro ao parsear JSON:", e);
+        localStorage.removeItem(HISTORICO_PROFESSOR_KEY);
+    }
+}
+
+function salvarHistoricoProfessor(valor) {
+    console.log("[Histórico Professor] Tentando salvar valor:", valor);
+    if (!valor || typeof valor !== 'string' || valor.trim() === '') return;
+    let historico = [];
+    try {
+        historico = JSON.parse(localStorage.getItem(HISTORICO_PROFESSOR_KEY) || '[]');
+        if (!Array.isArray(historico)) historico = [];
+    } catch (e) { historico = []; }
+    const valorTrimmed = valor.trim();
+    historico = historico.filter(item => item !== valorTrimmed);
+    historico.unshift(valorTrimmed);
+    if (historico.length > HISTORICO_LIMITE_PROFESSOR) {
+        historico = historico.slice(0, HISTORICO_LIMITE_PROFESSOR);
+    }
+    const historicoJSON = JSON.stringify(historico);
+    console.log("[Histórico Professor] Salvando:", historicoJSON);
+    try {
+        localStorage.setItem(HISTORICO_PROFESSOR_KEY, historicoJSON);
+        console.log("[Histórico Professor] Salvo com sucesso!");
+    } catch (e) {
+        console.error("[Histórico Professor] Erro ao salvar:", e);
+    }
+}
+// --- Fim da Lógica de Histórico #professor ---
+
+// --- Lógica de Histórico Específica para #ferramenta ---
+const HISTORICO_LIMITE_FERRAMENTA = 20;
+const HISTORICO_FERRAMENTA_KEY = 'historicoFerramenta';
+
+function carregarHistoricoFerramenta() {
+    console.log("[Histórico Ferramenta] Carregando...");
+    const datalist = document.getElementById('ferramenta-list');
+    if (!datalist) {
+        console.error("[Histórico Ferramenta] Erro: Datalist #ferramenta-list não encontrado!");
+        return;
+    }
+    const historicoJSON = localStorage.getItem(HISTORICO_FERRAMENTA_KEY);
+    console.log("[Histórico Ferramenta] Lido do localStorage:", historicoJSON);
+    try {
+        const historico = JSON.parse(historicoJSON || '[]');
+        datalist.innerHTML = '';
+        historico.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            datalist.appendChild(option);
+        });
+        console.log("[Histórico Ferramenta] Carregamento concluído.");
+    } catch (e) {
+        console.error("[Histórico Ferramenta] Erro ao parsear JSON:", e);
+        localStorage.removeItem(HISTORICO_FERRAMENTA_KEY);
+    }
+}
+
+function salvarHistoricoFerramenta(valor) {
+    console.log("[Histórico Ferramenta] Tentando salvar valor:", valor);
+    if (!valor || typeof valor !== 'string' || valor.trim() === '') return;
+    let historico = [];
+    try {
+        historico = JSON.parse(localStorage.getItem(HISTORICO_FERRAMENTA_KEY) || '[]');
+        if (!Array.isArray(historico)) historico = [];
+    } catch (e) { historico = []; }
+    const valorTrimmed = valor.trim();
+    historico = historico.filter(item => item !== valorTrimmed);
+    historico.unshift(valorTrimmed);
+    if (historico.length > HISTORICO_LIMITE_FERRAMENTA) {
+        historico = historico.slice(0, HISTORICO_LIMITE_FERRAMENTA);
+    }
+    const historicoJSON = JSON.stringify(historico);
+    console.log("[Histórico Ferramenta] Salvando:", historicoJSON);
+    try {
+        localStorage.setItem(HISTORICO_FERRAMENTA_KEY, historicoJSON);
+        console.log("[Histórico Ferramenta] Salvo com sucesso!");
+    } catch (e) {
+        console.error("[Histórico Ferramenta] Erro ao salvar:", e);
+    }
+}
+// --- Fim da Lógica de Histórico #ferramenta ---
+
 function formatarData(data) {
     if (!data) return ''; // Retorna vazio se data for inválida
     const partes = data.split('-');
@@ -146,9 +252,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("[DOM] Erro ao inicializar tema:", e);
     }
     
-    // Carregar histórico da turma ao iniciar
-    console.log("[DOM] Chamando carregarHistoricoTurma do DOMContentLoaded."); // Log
+    // Carregar históricos ao iniciar
+    console.log("[DOM] Chamando carregadores de histórico."); 
     carregarHistoricoTurma();
+    carregarHistoricoProfessor();
+    carregarHistoricoFerramenta();
 
     // Adicionar evento para controlar visibilidade do textarea
     document.getElementById('tipoParaCasa').addEventListener('change', function() {
@@ -171,7 +279,7 @@ function toggleParaCasaTexto() {
 }
 
 function gerarFeedback() {
-    console.log("[Feedback] Função gerarFeedback iniciada."); // Log
+    console.log("[Feedback] Função gerarFeedback iniciada."); 
     const turmaInput = document.getElementById('turma');
     const dataInput = document.getElementById('data');
     const linkAulaInput = document.getElementById('linkAula');
@@ -209,12 +317,17 @@ function gerarFeedback() {
     const tipoParaCasa = tipoParaCasaSelect.value;
     const paraCasaTexto = paraCasaTextoInput.value;
 
-    // Salvar histórico da turma
-    console.log("[Feedback] Chamando salvarHistoricoTurma."); // Log
+    // Salvar históricos
+    console.log("[Feedback] Chamando salvadores de histórico."); 
     salvarHistoricoTurma(turma);
-    // Atualizar datalist da turma imediatamente
-    console.log("[Feedback] Chamando carregarHistoricoTurma após salvar."); // Log
+    salvarHistoricoProfessor(professor);
+    salvarHistoricoFerramenta(ferramenta);
+    
+    // Atualizar datalists imediatamente
+    console.log("[Feedback] Chamando carregadores de histórico após salvar."); 
     carregarHistoricoTurma();
+    carregarHistoricoProfessor();
+    carregarHistoricoFerramenta();
 
     const paraCasaPadrao = "O aluno pode acessar o portal e realizar as atividades para casa da aula atual e também das anteriores, qualquer dúvida, anotar e trazer na próxima semana.";
     const textoPraCasa = tipoParaCasa === 'padrao' ? paraCasaPadrao : paraCasaTexto;
@@ -252,7 +365,7 @@ ${textoPraCasa}
     } else {
         console.warn("[Feedback] Botão #copyButton não encontrado para exibir.");
     }
-    console.log("[Feedback] Função gerarFeedback concluída."); // Log
+    console.log("[Feedback] Função gerarFeedback concluída.");
 }
 
 function copiarTexto() {

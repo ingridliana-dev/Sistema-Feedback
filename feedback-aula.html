@@ -32,12 +32,14 @@
         <!-- Continuação dos campos em duas colunas -->
         <div class="form-group">
             <label for="professor">Professor(a):</label>
-            <input type="text" id="professor">
+            <input type="text" id="professor" list="professor-list">
+            <datalist id="professor-list"></datalist>
         </div>
     
         <div class="form-group">
             <label for="ferramenta">Ferramenta:</label>
-            <input type="text" id="ferramenta" placeholder="Ex: HTML e CSS">
+            <input type="text" id="ferramenta" placeholder="Ex: HTML e CSS" list="ferramenta-list">
+            <datalist id="ferramenta-list"></datalist>
         </div>
     
         <!-- Campos que ocupam linha inteira -->

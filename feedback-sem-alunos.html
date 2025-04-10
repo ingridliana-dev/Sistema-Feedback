@@ -13,7 +13,8 @@
     
         <div class="form-group">
             <label for="turma">Turma:</label>
-            <input type="text" id="turma" placeholder="Ex: 222 - CYO2 / TERÇA / 14:00 / Ingrid Liana">
+            <input type="text" id="turma" placeholder="Ex: 222 - CYO2 / TERÇA / 14:00 / Ingrid Liana" list="turma-list">
+            <datalist id="turma-list"></datalist>
         </div>
     
         <div class="form-group">
@@ -28,7 +29,8 @@
     
         <div class="form-group">
             <label for="professor">Professor(a):</label>
-            <input type="text" id="professor">
+            <input type="text" id="professor" list="professor-list">
+            <datalist id="professor-list"></datalist>
         </div>
     
         <button id="gerarFeedbackBtn">Gerar Feedback</button>
