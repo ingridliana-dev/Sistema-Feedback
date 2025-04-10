@@ -598,3 +598,12 @@ input[list] {
    /* A melhor abordagem seria remover a aparência padrão do input, 
       mas isso pode afetar outros estilos. Vamos focar no Webkit por enquanto. */
 }
+
+/* Estilo para avisos abaixo de botões desabilitados */
+.feedback-aviso {
+    font-size: 0.85em; /* Tamanho menor */
+    color: var(--secondary-color); /* Cor discreta, pode ser ajustada */
+    text-align: center; /* Centraliza o texto */
+    margin-top: -0.5rem; /* Aproxima um pouco do botão acima */
+    margin-bottom: 1rem; /* Espaço abaixo */
+}

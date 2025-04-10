@@ -171,7 +171,8 @@
             
             <!-- Área de ações atualizada -->
             <div class="form-actions">
-                <button onclick="gerarFeedback()" class="primary-button">Gerar Feedback</button>
+                <button onclick="gerarFeedback()" class="primary-button" id="gerarFeedbackExpBtn">Gerar Feedback</button>
+                <p id="presenca-aviso" class="feedback-aviso" style="display: none;">Selecione a presença do aluno para gerar o feedback</p>
                 <div id="resultado"></div>
                 <button id="copyButton" class="copy-button" style="display: none;" onclick="copiarTexto()">Copiar Texto</button>
             </div>

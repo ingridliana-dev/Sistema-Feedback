@@ -35,18 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
 });
 
+// Simplificada: Apenas controla a visibilidade dos campos de feedback
 function toggleFields() {
-    const presenca = document.getElementById('presenca').value;
+    console.log("[ToggleFields] Função chamada.");
+    const presencaSelect = document.getElementById('presenca');
     const camposFeedback = document.getElementById('campos-feedback');
-    const botaoGerar = document.querySelector('button[onclick="gerarFeedback()"]');
     
+    if (!presencaSelect || !camposFeedback) {
+        console.error("[ToggleFields] Erro: Elementos #presenca ou #campos-feedback não encontrados.");
+        return;
+    }
+    
+    const presenca = presencaSelect.value;
+    console.log(`[ToggleFields] Valor de presença selecionado: '${presenca}'`); 
+
     if (presenca === 'compareceu') {
+        console.log("[ToggleFields] Condição: compareceu. Mostrando campos.");
         camposFeedback.style.display = 'block';
-    } else {
+    } else { // Inclui nao-compareceu e vazio/inválido
+        console.log("[ToggleFields] Condição: outro. Escondendo campos.");
         camposFeedback.style.display = 'none';
     }
-    // Sempre mostrar o botão gerar
-    botaoGerar.style.display = 'block';
+    // Não mexe mais no botão ou no aviso aqui
 }
 
 function formatarData(data) {
@@ -60,7 +70,29 @@ function formatarData(data) {
 
 function gerarFeedback() {
     console.log("[Feedback Exp] Gerando feedback...");
-    const presenca = document.getElementById('presenca').value;
+    const presencaSelect = document.getElementById('presenca');
+    const avisoPresenca = document.getElementById('presenca-aviso');
+
+    // --- Verificação de Presença (NOVO) ---
+    if (!presencaSelect || !avisoPresenca) {
+         console.error("[Feedback Exp] Erro crítico: #presenca ou #presenca-aviso não encontrado.");
+         alert("Erro interno. Não foi possível verificar a presença.");
+         return;
+    }
+    const presenca = presencaSelect.value;
+    if (!presenca) { // Se for a opção vazia ""
+        console.warn("[Feedback Exp] Tentativa de gerar feedback sem selecionar presença.");
+        avisoPresenca.style.display = 'block'; // Mostra o aviso
+        // Opcional: Dar um pequeno destaque visual ao select de presença
+        presencaSelect.focus(); // Foca no campo para o usuário corrigir
+        // Poderia adicionar uma classe de erro temporária aqui
+        return; // Interrompe a geração do feedback
+    } else {
+        avisoPresenca.style.display = 'none'; // Garante que o aviso está escondido se a presença foi selecionada
+    }
+    // --- Fim da Verificação de Presença ---
+
+    // Restante da lógica original de gerarFeedback...
     const data = formatarData(document.getElementById('data').value);
     const horario = document.getElementById('horario').value;
     const nivel = document.getElementById('nivel').value;
@@ -68,6 +100,13 @@ function gerarFeedback() {
     const outroConteudoTextoInput = document.getElementById('outroConteudoTexto');
     const desenvolvimentoInput = document.getElementById('desenvolvimento');
     
+    // Adicionar verificações de existência para os outros inputs se necessário...
+    if (!nomeAlunoInput || !outroConteudoTextoInput || !desenvolvimentoInput) {
+        console.error("[Feedback Exp] Erro: Inputs de aluno/conteúdo/desenvolvimento não encontrados.");
+        alert("Erro interno. Campos do formulário não encontrados.");
+        return;
+    }
+
     const nomeAluno = nomeAlunoInput.value;
     const idade = document.getElementById('idade').value;
 
@@ -169,9 +208,32 @@ Idade: ${idade}
 }
 
 function copiarTexto() {
-    const texto = document.getElementById('resultado').textContent;
+    const resultadoDiv = document.getElementById('resultado');
+    const copyButton = document.getElementById('copyButton');
+    const texto = resultadoDiv?.textContent;
+
+    if (!texto || !copyButton || !navigator.clipboard) {
+        console.error("[Copiar Exp] Erro: Elemento não encontrado ou clipboard indisponível.");
+        if (!navigator.clipboard) alert("Seu navegador não suporta a cópia.");
+        return;
+    }
+
     navigator.clipboard.writeText(texto).then(() => {
-        alert('Texto copiado com sucesso!');
+        console.log("[Copiar Exp] Texto copiado.");
+        const originalText = copyButton.textContent;
+        const originalBgColor = copyButton.style.backgroundColor;
+        
+        copyButton.textContent = 'Copiado! ✅';
+        copyButton.style.backgroundColor = '#dc3545'; 
+        copyButton.disabled = true;
+        setTimeout(() => {
+            copyButton.textContent = originalText;
+            copyButton.style.backgroundColor = originalBgColor || '';
+            copyButton.disabled = false;
+        }, 2000);
+    }, (err) => {
+        console.error('[Copiar Exp] Falha ao copiar:', err);
+        alert('Falha ao copiar o texto.');
     });
 }
 
